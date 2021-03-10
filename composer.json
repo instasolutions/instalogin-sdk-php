@@ -1,5 +1,5 @@
 {
-  "name": "instalogin/instalogin-php",
+  "name": "instalogin/sdk",
   "type": "library",
   "description": "PHP Wrapper for the Instalogin API",
   "keywords": ["authentication", "login", "instalogin"],
