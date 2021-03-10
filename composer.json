@@ -1,7 +1,6 @@
 {
   "name": "instalogin/instalogin-php",
   "type": "library",
-  "version": "0.7.0",
   "description": "PHP Wrapper for the Instalogin API",
   "keywords": ["authentication", "login", "instalogin"],
   "homepage": "https://www.instalog.in",
