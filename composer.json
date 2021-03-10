@@ -1,0 +1,34 @@
+{
+  "name": "instalogin/instalogin-php",
+  "type": "library",
+  "version": "0.7.0",
+  "description": "PHP Wrapper for the Instalogin API",
+  "keywords": ["authentication", "login", "instalogin"],
+  "homepage": "https://www.instalog.in",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Michael Piecko",
+      "email": "michael.piecko@insta.ag"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "5.6"
+    }
+  },
+  "require": {
+    "php": ">=5.6",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4" : {
+      "Instalogin\\" : "src/"
+    }
+  },
+  "require-dev": {
+    "symfony/var-dumper": "3.4.x-dev"
+  }
+}
