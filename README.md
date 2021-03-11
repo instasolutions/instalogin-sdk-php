@@ -86,7 +86,8 @@ $token = $client->decodeJwt($jwt);
 ```
 _Notice: The JWT is submitted using the standard header `Authorization: Bearer ...`_
 
-Next you should check if the user trying to authenticate is in your system and allowed to proceed:
+Next you should check if the user trying to authenticate is in your own system and allowed to login. This is your own
+business logic, thus just as an example:
 
 ```php
 // $userRepository is any PHP class used for database queries 
