@@ -287,11 +287,11 @@ class Client
         return implode('.', $payload);
     }
 
-    public function createJwtToken($claims = [])
+    public function createJwt($claims = [])
     {
     }
 
-    public function decodeJwtToken($jwt)
+    public function decodeJwt($jwt)
     {
         $time = time();
 
