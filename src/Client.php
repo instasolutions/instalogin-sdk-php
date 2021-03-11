@@ -142,7 +142,15 @@ class Client
         $response = $this->doRequest(self::DELETE_REQUEST, sprintf('%s/v1/entity/devices/%s', $this->api, $id));
     }
 
+    /**
+     * @deprecated
+     */
     public function getChallengeJwt()
+    {
+        return $this->getAuthJwt();
+    }
+
+    public function getAuthJwt()
     {
         return $this->createApiToken(self::POST_REQUEST, sprintf('%s/v1/entity/challenges', $this->api));
     }
