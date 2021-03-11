@@ -147,10 +147,10 @@ class Client
      */
     public function getChallengeJwt()
     {
-        return $this->getAuthJwt();
+        return $this->getAuthToken();
     }
 
-    public function getAuthJwt()
+    public function getAuthToken()
     {
         return $this->createApiToken(self::POST_REQUEST, sprintf('%s/v1/entity/challenges', $this->api));
     }
