@@ -33,7 +33,7 @@ class Client
     const PATCH_REQUEST = 'PATCH';
     const DELETE_REQUEST = 'DELETE';
 
-    const TIMESTAMP_LEEWAY = 5;
+    const REQUEST_TIMESTAMP_LEEWAY = 5;
 
     const JSON_DEFAULT_DEPTH    = 512;
     const BASE64_PADDING_LENGTH = 4;
