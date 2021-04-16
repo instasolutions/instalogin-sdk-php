@@ -89,6 +89,14 @@ class Client
     }
 
     /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
      * @return Identity[]
      */
     public function getIdentities()
