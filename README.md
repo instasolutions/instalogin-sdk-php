@@ -69,7 +69,7 @@ Add the following few lines to your HTML frontend to show the Instalogin image u
 <script src="https://cdn.instalog.in/js/instalogin.js"></script>
 <script>
     new Instalogin.Auth({
-        token: "<?php echo $client->getAuthToken() ?>", // JWT for accessing the Instalogin API
+        key: "<?php echo $client->getKey() ?>", // The Instalogin key
         authenticationUrl: "/path/to/login-controller"  // The controller to process the authentication 
     }).start();
 </script>
