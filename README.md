@@ -54,6 +54,21 @@ try {
 }
 ```
 
+If you do not want to use email addresses as identifiers, and still want to let Instalogin send the provision email,
+just provide the recipients email as parameter. We do not store this data anywhere - it is just used to send the
+provision email:
+
+```php
+try {
+    $client->provisionIdentity('john.doe', array(
+        'sendEmail' => 'john.doe@example.com'
+    ));
+    
+} catch (\Instalogin\Exception\TransportException $e) {
+    echo 'Could not connect to Instalogin service: '.$e->getMessage();
+}
+```
+
 This code creates or uses an existing identity and sends out an email with a QR Code, that needs to be scanned with the
 Instalogin app. Once done, the provisioning is completed, and the user is ready to authenticate using the Instalogin app. 
 
