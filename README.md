@@ -69,8 +69,8 @@ Add the following few lines to your HTML frontend to show the Instalogin image u
 <script src="https://cdn.instalog.in/js/instalogin.js"></script>
 <script>
     new Instalogin.Auth({
-        key: "<?php echo $client->getKey() ?>", // The Instalogin key
-        authenticationUrl: "/path/to/login-controller"  // The controller to process the authentication 
+        key: "<?php echo $_ENV['INSTALOGIN_KEY'] ?>", // The Instalogin key
+        authenticationUrl: "/path/to/login-controller"  // The authentication controller to process the authentication 
     }).start();
 </script>
 ```
@@ -78,10 +78,13 @@ Add the following few lines to your HTML frontend to show the Instalogin image u
 ### Authentication
 
 The authentication controller configured in the JavaScript will receive a standard authorization header from the
-Instalogin API. The first thing needs to be done is extracting the token from the header and decode it.
+Instalogin API. The first thing needs to be done inside the controller is extracting the token from the header and decode it.
 
 ```php
-// Extract the $jwt from the authorization header and decode it
+// Extract the JWT from header, ignoring the "Bearer" prefix
+$jwt = mb_substr($request->headers->get('Authorization'), 7);
+
+// decode it
 $token = $client->decodeJwt($jwt);
 ```
 _Notice: The JWT is submitted using the standard header `Authorization: Bearer ...`_
@@ -99,7 +102,7 @@ if (!$user->isEnabled() || !$user->isSubscriptionActive()) {
 }
 ```
 
-The final and important thing you need to do is check, if the authentication attempt was actually performed on
+The final and important thing you need to do is to check, if the authentication attempt was actually performed on
 the Instalogin system:
 
 ```php
