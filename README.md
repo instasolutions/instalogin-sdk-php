@@ -4,7 +4,7 @@ A simple PHP wrapper for the Instalogin API.
 
 ## Quick Guide
 
-Below is a striped down guide how to integrate Instalogin in your project to test it out. We are already
+Below is a striped down guide how to integrate Instalogin in your project to test it easily. We are already
 preparing a comprehensive documentation covering all possible use cases and parameters. So stay tuned.
 
 _Please notice: this document is a work in progress and currently addresses PHP 5.6 for backward compatibility._
