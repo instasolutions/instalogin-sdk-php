@@ -80,13 +80,16 @@ Add the following few lines to your HTML frontend to show the Instalogin image u
 <!-- Place this HTML node wherever the Instalogin image should appear -->
 <div id="instalogin"></div>
 
-<!-- Add the JavaScript library and configure it -->
-<script src="https://cdn.instalog.in/js/instalogin.js"></script>
+<!-- Load the JavaScript library asynchronously (non-blocking) and configure it -->
+<script async id="instalogin-js" src="https://cdn.instalog.in/js/instalogin.js"></script>
 <script>
-    new Instalogin.Auth({
-        key: "<?php echo $_ENV['INSTALOGIN_KEY'] ?>", // The Instalogin key
-        authenticationUrl: "/path/to/login-controller"  // The authentication controller to process the authentication 
-    }).start();
+    // Wait until the script has loaded
+    document.getElementById("instalogin-js").addEventListener("load", function() {
+        new Instalogin.Auth({
+            key: "<?php echo $_ENV['INSTALOGIN_KEY'] ?>", // The Instalogin key
+            authenticationUrl: "/path/to/login-controller"  // The authentication controller to process the authentication 
+        }).start();
+    });
 </script>
 ```
 
