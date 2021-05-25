@@ -17,7 +17,7 @@
 
 namespace Instalogin;
 
-class ProvisioningToken
+class Token
 {
 
     /**
@@ -33,27 +33,34 @@ class ProvisioningToken
     /**
      * @var string
      */
-    private $expiresAt;
+    private $deviceName;
 
     /**
-     * @var Identity
+     * @var string
      */
-    private $identity;
+    private $deviceLabel;
 
     /**
-     * ProvisioningToken constructor.
+     * @var string
+     */
+    private $deviceModel;
+
+    /**
+     * Device constructor.
      *
      * @param string $id
      * @param string $createdAt
-     * @param string $expiresAt
-     * @param Identity $identity
+     * @param string $deviceName
+     * @param string $deviceLabel
+     * @param string $deviceModel
      */
-    public function __construct($id, $createdAt, $expiresAt, Identity $identity)
+    public function __construct($id, $createdAt, $deviceName, $deviceLabel, $deviceModel)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
-        $this->expiresAt = $expiresAt;
-        $this->identity = $identity;
+        $this->deviceName = $deviceName;
+        $this->deviceLabel = $deviceLabel;
+        $this->deviceModel = $deviceModel;
     }
 
     /**
@@ -75,23 +82,41 @@ class ProvisioningToken
     /**
      * @return string
      */
-    public function getExpiresAt()
+    public function getDeviceName()
     {
-        return $this->expiresAt;
+        return $this->deviceName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceLabel()
+    {
+        return $this->deviceLabel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceModel()
+    {
+        return $this->deviceModel;
     }
 
     /**
      * @param $array
      *
-     * @return ProvisioningToken
+     * @return Token
      */
     public static function fromArray($array)
     {
-        $id = $array['id'] ?: null;
+        $id    = $array['id'] ?:  null;
         $createdAt = $array['createdAt'] ?: null;
-        $expiresAt = $array['expiresAt'] ?: null;
-        $identity = Identity::fromArray($array['identity']);
+        $deviceName  = $array['deviceName'] ?: null;
+        $deviceLabel = $array['deviceLabel'] ?: null;
+        $deviceModel = $array['deviceModel'] ?: null;
 
-        return new ProvisioningToken($id, $createdAt, $expiresAt, $identity);
+        return new Token($id, $createdAt, $deviceName, $deviceLabel, $deviceModel);
     }
+
 }

@@ -17,74 +17,81 @@
 
 namespace Instalogin;
 
-class AuthenticationToken
+class ProvisionData
 {
 
     /**
      * @var string
      */
-    private $challenge;
+    private $id;
 
     /**
      * @var string
      */
-    private $identifier;
+    private $createdAt;
 
     /**
      * @var string
      */
-    private $otp;
+    private $expiresAt;
 
     /**
-     * AuthenticationToken constructor.
+     * @var Identity
+     */
+    private $identity;
+
+    /**
+     * ProvisioningToken constructor.
      *
-     * @param string $challenge
-     * @param string $identifier
-     * @param string $otp
+     * @param string $id
+     * @param string $createdAt
+     * @param string $expiresAt
+     * @param Identity $identity
      */
-    public function __construct($challenge, $identifier, $otp)
+    public function __construct($id, $createdAt, $expiresAt, Identity $identity)
     {
-        $this->challenge = $challenge;
-        $this->identifier = $identifier;
-        $this->otp = $otp;
+        $this->id = $id;
+        $this->createdAt = $createdAt;
+        $this->expiresAt = $expiresAt;
+        $this->identity = $identity;
     }
 
     /**
      * @return string
      */
-    public function getChallenge()
+    public function getId()
     {
-        return $this->challenge;
+        return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getCreatedAt()
     {
-        return $this->identifier;
+        return $this->createdAt;
     }
 
     /**
      * @return string
      */
-    public function getOtp()
+    public function getExpiresAt()
     {
-        return $this->otp;
+        return $this->expiresAt;
     }
 
     /**
      * @param $array
      *
-     * @return AuthenticationToken
+     * @return ProvisionData
      */
     public static function fromArray($array)
     {
-        $challenge = $array['challenge'] ?: null;
-        $identifier = $array['identifier'] ?: null;
-        $otp = $array['otp'] ?: null;
+        $id = $array['id'] ?: null;
+        $createdAt = $array['createdAt'] ?: null;
+        $expiresAt = $array['expiresAt'] ?: null;
+        $identity = Identity::fromArray($array['identity']);
 
-        return new AuthenticationToken($challenge, $identifier, $otp);
+        return new ProvisionData($id, $createdAt, $expiresAt, $identity);
     }
-
 }

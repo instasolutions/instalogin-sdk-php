@@ -17,90 +17,74 @@
 
 namespace Instalogin;
 
-class Device
+class AuthenticationData
 {
 
     /**
      * @var string
      */
-    private $id;
+    private $challenge;
 
     /**
      * @var string
      */
-    private $createdAt;
+    private $identifier;
 
     /**
      * @var string
      */
-    private $label;
+    private $otp;
 
     /**
-     * @var string
-     */
-    private $model;
-
-    /**
-     * Device constructor.
+     * AuthenticationToken constructor.
      *
-     * @param string $id
-     * @param string $createdAt
-     * @param string $label
-     * @param string $model
+     * @param string $challenge
+     * @param string $identifier
+     * @param string $otp
      */
-    public function __construct($id, $createdAt, $label, $model)
+    public function __construct($challenge, $identifier, $otp)
     {
-        $this->id = $id;
-        $this->createdAt = $createdAt;
-        $this->label = $label;
-        $this->model = $model;
+        $this->challenge = $challenge;
+        $this->identifier = $identifier;
+        $this->otp = $otp;
     }
 
     /**
      * @return string
      */
-    public function getId()
+    public function getChallenge()
     {
-        return $this->id;
+        return $this->challenge;
     }
 
     /**
      * @return string
      */
-    public function getCreatedAt()
+    public function getIdentifier()
     {
-        return $this->createdAt;
+        return $this->identifier;
     }
 
     /**
      * @return string
      */
-    public function getLabel()
+    public function getOtp()
     {
-        return $this->label;
-    }
-
-    /**
-     * @return string
-     */
-    public function getModel()
-    {
-        return $this->model;
+        return $this->otp;
     }
 
     /**
      * @param $array
      *
-     * @return Device
+     * @return AuthenticationData
      */
     public static function fromArray($array)
     {
-        $id = $array['id'] ?:  null;
-        $createdAt = $array['createdAt'] ?: null;
-        $label = $array['label'] ?: null;
-        $model = $array['model'] ?: null;
+        $challenge = $array['challenge'] ?: null;
+        $identifier = $array['identifier'] ?: null;
+        $otp = $array['otp'] ?: null;
 
-        return new Device($id, $createdAt, $label, $model);
+        return new AuthenticationData($challenge, $identifier, $otp);
     }
 
 }
