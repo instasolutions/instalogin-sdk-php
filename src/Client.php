@@ -21,11 +21,12 @@ use Exception;
 use Instalogin\Exception\NetworkException;
 use Instalogin\Exception\ServerException;
 use Instalogin\Exception\TransportException;
+use InvalidArgumentException;
 use RuntimeException;
 
 class Client
 {
-    const VERSION = '0.7.8';
+    const VERSION = '0.8.0';
 
     const GET_REQUEST = 'GET';
     const POST_REQUEST = 'POST';
@@ -72,9 +73,15 @@ class Client
      * @param string $key
      * @param string $secret
      * @param string $api
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct($key, $secret, $api = 'https://api.instalog.in')
     {
+        if (empty($key) || empty($secret)) {
+            throw new InvalidArgumentException('Invalid "key" or "secret" while initiating Instalogin client');
+        }
+
         $this->key = $key;
         $this->secret = $secret;
         $this->api = $api;
@@ -127,7 +134,7 @@ class Client
      * @param $identifier
      * @param array $options
      *
-     * @return ProvisioningToken
+     * @return ProvisionData
      */
     public function provisionIdentity($identifier, $options = [])
     {
@@ -142,10 +149,10 @@ class Client
 
         $response = $this->doRequest(self::POST_REQUEST, sprintf('%s/v1/entity/provision', $this->api), $data);
 
-        return ProvisioningToken::fromArray($response);
+        return ProvisionData::fromArray($response);
     }
 
-    public function deleteDevice($id)
+    public function deleteToken($id)
     {
         $response = $this->doRequest(self::DELETE_REQUEST, sprintf('%s/v1/entity/devices/%s', $this->api, $id));
     }
@@ -164,7 +171,7 @@ class Client
     }
 
     /**
-     * @param AuthenticationToken $token
+     * @param AuthenticationData $token
      *
      * @return bool
      */
@@ -324,7 +331,7 @@ class Client
             throw new RuntimeException('JWT has invalid signature');
         }
 
-        return new AuthenticationToken($body['jti'], $body['sub'], $body['otp']);
+        return new AuthenticationData($body['jti'], $body['sub'], $body['otp']);
     }
 
     private function jsonEncode($data)

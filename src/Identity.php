@@ -41,9 +41,9 @@ class Identity
     private $identifier;
 
     /**
-     * @var Device[]
+     * @var Token[]
      */
-    private $devices;
+    private $tokens;
 
     /**
      * Identity constructor.
@@ -52,15 +52,15 @@ class Identity
      * @param bool $enabled
      * @param string $createdAt
      * @param string $identifier
-     * @param Device[] $devices
+     * @param Token[] $tokens
      */
-    public function __construct($id, $enabled, $createdAt, $identifier, array $devices)
+    public function __construct($id, $enabled, $createdAt, $identifier, array $tokens)
     {
         $this->id = $id;
         $this->enabled = $enabled;
         $this->createdAt = $createdAt;
         $this->identifier = $identifier;
-        $this->devices = $devices;
+        $this->tokens = $tokens;
     }
 
     /**
@@ -104,11 +104,11 @@ class Identity
     }
 
     /**
-     * @return Device[]
+     * @return Token[]
      */
-    public function getDevices()
+    public function getTokens()
     {
-        return $this->devices;
+        return $this->tokens;
     }
 
     /**
@@ -122,13 +122,13 @@ class Identity
         $createdAt = $array['createdAt'] ?: null;
         $identifier = $array['identifier'] ?: null;
         $enabled = $array['enabled'] ?: false;
-        $devices = [];
+        $tokens = [];
 
-        foreach ($array['devices'] as $item) {
-            $devices[] = Device::fromArray($item);
+        foreach ($array['tokens'] as $item) {
+            $tokens[] = Token::fromArray($item);
         }
 
-        return new Identity($id, $enabled, $createdAt, $identifier, $devices);
+        return new Identity($id, $enabled, $createdAt, $identifier, $tokens);
     }
 
 }
