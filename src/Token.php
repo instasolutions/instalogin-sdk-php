@@ -33,34 +33,34 @@ class Token
     /**
      * @var string
      */
-    private $deviceName;
+    private $name;
 
     /**
      * @var string
      */
-    private $deviceLabel;
+    private $label;
 
     /**
      * @var string
      */
-    private $deviceModel;
+    private $model;
 
     /**
      * Device constructor.
      *
      * @param string $id
      * @param string $createdAt
-     * @param string $deviceName
-     * @param string $deviceLabel
-     * @param string $deviceModel
+     * @param string $name
+     * @param string $label
+     * @param string $model
      */
-    public function __construct($id, $createdAt, $deviceName, $deviceLabel, $deviceModel)
+    public function __construct($id, $createdAt, $name, $label, $model)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
-        $this->deviceName = $deviceName;
-        $this->deviceLabel = $deviceLabel;
-        $this->deviceModel = $deviceModel;
+        $this->name = $name;
+        $this->label = $label;
+        $this->model = $model;
     }
 
     /**
@@ -82,25 +82,25 @@ class Token
     /**
      * @return string
      */
-    public function getDeviceName()
+    public function getName()
     {
-        return $this->deviceName;
+        return $this->name;
     }
 
     /**
      * @return string
      */
-    public function getDeviceLabel()
+    public function getLabel()
     {
-        return $this->deviceLabel;
+        return $this->label;
     }
 
     /**
      * @return string
      */
-    public function getDeviceModel()
+    public function getModel()
     {
-        return $this->deviceModel;
+        return $this->model;
     }
 
     /**
@@ -112,11 +112,11 @@ class Token
     {
         $id    = $array['id'] ?:  null;
         $createdAt = $array['createdAt'] ?: null;
-        $deviceName  = $array['deviceName'] ?: null;
-        $deviceLabel = $array['deviceLabel'] ?: null;
-        $deviceModel = $array['deviceModel'] ?: null;
+        $name  = $array['name'] ?: null;
+        $label = $array['label'] ?: null;
+        $model = $array['model'] ?: null;
 
-        return new Token($id, $createdAt, $deviceName, $deviceLabel, $deviceModel);
+        return new Token($id, $createdAt, $name, $label, $model);
     }
 
 }

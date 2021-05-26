@@ -26,7 +26,7 @@ use RuntimeException;
 
 class Client
 {
-    const VERSION = '0.8.0';
+    const VERSION = '0.8.1';
 
     const GET_REQUEST = 'GET';
     const POST_REQUEST = 'POST';
@@ -34,7 +34,7 @@ class Client
     const PATCH_REQUEST = 'PATCH';
     const DELETE_REQUEST = 'DELETE';
 
-    const REQUEST_TIMESTAMP_LEEWAY = 5;
+    const REQUEST_TIMESTAMP_LEEWAY = 10;
 
     const JSON_DEFAULT_DEPTH    = 512;
     const BASE64_PADDING_LENGTH = 4;
@@ -306,29 +306,37 @@ class Client
     {
     }
 
+    /**
+     * @param $jwt
+     * @throws RuntimeException
+     * @return AuthenticationData
+     */
     public function decodeJwt($jwt)
     {
-        $time = time();
-
         $tks = explode('.', $jwt);
         if (count($tks) != 3) {
-            throw new RuntimeException('JWT has wrong number of segments');
+            throw new RuntimeException('JWT has wrong number of segments.');
         }
 
         list($head64, $body64, $signature64) = $tks;
 
         if (null === ($header = $this->jsonDecode($this->base64UrlDecode($head64)))) {
-            throw new RuntimeException('JWT has invalid header encoding');
+            throw new RuntimeException('JWT has invalid header encoding.');
         }
         if (null === ($body = $this->jsonDecode($this->base64UrlDecode($body64)))) {
-            throw new RuntimeException('JWT has invalid body encoding');
+            throw new RuntimeException('JWT has invalid body encoding.');
         }
         if (null === ($signature = $this->base64UrlDecode($signature64))) {
-            throw new RuntimeException('JWT has invalid signature encoding');
+            throw new RuntimeException('JWT has invalid signature encoding.');
         }
 
         if (hash_hmac('sha256', $head64.'.'.$body64, hex2bin($this->secret), true) !== $signature) {
-            throw new RuntimeException('JWT has invalid signature');
+            throw new RuntimeException('JWT has invalid signature.');
+        }
+
+        $timestamp = time();
+        if ($body['iat'] - self::REQUEST_TIMESTAMP_LEEWAY > $timestamp || $timestamp > $body['iat'] + self::REQUEST_TIMESTAMP_LEEWAY) {
+            throw new RuntimeException('JWT credentials have expired.');
         }
 
         return new AuthenticationData($body['jti'], $body['sub'], $body['otp']);
@@ -339,7 +347,7 @@ class Client
         try {
             return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         } catch (Exception $exception) {
-            throw new RuntimeException('Error while encoding to JSON', 0, $exception);
+            throw new RuntimeException('Error while encoding to JSON.', 0, $exception);
         }
     }
 
