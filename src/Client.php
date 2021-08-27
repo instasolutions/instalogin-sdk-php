@@ -26,7 +26,7 @@ use RuntimeException;
 
 class Client
 {
-    const VERSION = '0.8.1';
+    const VERSION = '0.8.2';
 
     const GET_REQUEST = 'GET';
     const POST_REQUEST = 'POST';
@@ -101,6 +101,11 @@ class Client
     public function getKey()
     {
         return $this->key;
+    }
+
+    public function check()
+    {
+        $this->doRequest(self::GET_REQUEST, sprintf('%s/v1/entity/configuration/check', $this->api));
     }
 
     /**
