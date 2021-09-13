@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2021 INSTA Holding AG
+ * Copyright (c) 2021 InstaSolutions GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -225,7 +225,7 @@ class Client
         $headers = [
             'Accept: application/json',
             'Authorization: Bearer '.$this->createApiToken($method, $url, $body),
-            'User-Agent: Instalog PHP Client '.self::VERSION
+            'User-Agent: Instalogin PHP Client '.self::VERSION
         ];
 
         if (in_array($method, [self::POST_REQUEST, self::PUT_REQUEST, self::PATCH_REQUEST])) {
