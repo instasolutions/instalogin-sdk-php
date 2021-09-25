@@ -157,6 +157,17 @@ class Client
         return ProvisionData::fromArray($response);
     }
 
+    /**
+     * @param string $oldIdentifier
+     * @param string $newIdentifier
+     */
+    public function renameIdentity($oldIdentifier, $newIdentifier)
+    {
+        $this->doRequest(self::POST_REQUEST, sprintf('%s/v1/entity/identities/%s/rename', $this->api, urlencode($oldIdentifier)), [
+            'identifier' => $newIdentifier
+        ]);
+    }
+
     public function deleteToken($id)
     {
         $response = $this->doRequest(self::DELETE_REQUEST, sprintf('%s/v1/entity/devices/%s', $this->api, $id));
