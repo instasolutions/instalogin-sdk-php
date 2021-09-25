@@ -26,7 +26,7 @@ use RuntimeException;
 
 class Client
 {
-    const VERSION = '0.8.2';
+    const VERSION = '0.8.3';
 
     const GET_REQUEST = 'GET';
     const POST_REQUEST = 'POST';
@@ -163,7 +163,7 @@ class Client
      */
     public function renameIdentity($oldIdentifier, $newIdentifier)
     {
-        $this->doRequest(self::POST_REQUEST, sprintf('%s/v1/entity/identities/%s/rename', $this->api, urlencode($oldIdentifier)), [
+        $this->doRequest(self::PATCH_REQUEST, sprintf('%s/v1/entity/identities/%s/rename', $this->api, urlencode($oldIdentifier)), [
             'identifier' => $newIdentifier
         ]);
     }
