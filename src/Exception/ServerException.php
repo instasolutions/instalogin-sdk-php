@@ -117,11 +117,10 @@ class ServerException extends TransportException
 
     public function __construct($content = 'An error occurred', $status = 500)
     {
-
-        if (is_array($content)) {
+        if (is_array($content) && !empty($content)) {
             $this->status = $content['status'];
             $this->title  = $content['title'];
-            $this->detail = $content['detail'] ?: (self::$statusTexts[$this->status] ?: self::$statusTexts[500]);
+            $this->detail = $content['detail'] ?: (self::$statusTexts[$status] ?: self::$statusTexts[500]);
             $this->errors = $content['errors'] ?: array();
         } else {
             $this->status = $status;
@@ -132,7 +131,7 @@ class ServerException extends TransportException
 
         $message = $this->status.' '.$this->detail;
 
-        parent::__construct($message, 0);
+        parent::__construct($message, $this->status);
     }
 
     /**
