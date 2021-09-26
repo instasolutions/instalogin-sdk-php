@@ -168,6 +168,14 @@ class Client
         ]);
     }
 
+    /**
+     * @param string $identifier
+     */
+    public function deleteIdentity($identifier)
+    {
+        $this->doRequest(self::DELETE_REQUEST, sprintf('%s/v1/entity/identities/%s', $this->api, urlencode($identifier)));
+    }
+
     public function deleteToken($id)
     {
         $response = $this->doRequest(self::DELETE_REQUEST, sprintf('%s/v1/entity/devices/%s', $this->api, $id));
